@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Bryan Lin(Lbw) - 攝影作品集</title>
+    <style>
+        /* === 黑色底高質感主題與核心 CSS === */
+        body { 
+            font-family: "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif; 
+            background: #121212; 
+            color: #f0f0f0; 
+            margin: 0; 
+            padding: 0; 
+            line-height: 1.6;
+        }
+
+        /* === 導覽列 Navbar === */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(18, 18, 18, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #222;
+        }
+        .navbar-brand {
+            font-size: 16px;
+            letter-spacing: 2px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+        .navbar-links a {
+            color: #888;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        .navbar-links a:hover { color: #fff; }
+
+        /* === 引言區 Hero Section === */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero-quote {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: #fff;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        /* === 分類篩選選單 === */
+        .filter-container {
+            text-align: center;
+            padding-bottom: 50px;
+        }
+        .filter-btn {
+            background: transparent;
+            color: #888;
+            border: 1px solid #444; 
+            border-radius: 4px;
+            padding: 8px 20px;
+            margin: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            letter-spacing: 2px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            color: #121212;
+            background: #f0f0f0;
+            border-color: #f0f0f0;
+        }
+
+        /* === 瀑布流版面 CSS === */
+        .gallery {
+            column-count: 3;
+            column-gap: 15px;
+            max-width: 1400px; 
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+        }
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 15px;
+            background: #1a1a1a; 
+            border-radius: 2px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            display: none; 
+        }
+        .gallery-item.show { display: block; }
+        .gallery img {
+            width: 100%;
+            display: block;
+            transition: transform 0.6s ease;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .gallery img:hover { transform: scale(1.03); }
+
+        /* === Lightbox 燈箱放大模式 === */
+        .lightbox {
+            display: none; position: fixed; z-index: 1000; 
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); 
+            justify-content: center; align-items: center; cursor: pointer; 
+        }
+        .lightbox.show { display: flex; }
+        .lightbox-content {
+            max-width: 90%; max-height: 90%; object-fit: contain;
+            border-radius: 2px; box-shadow: 0 0 40px rgba(0,0,0,0.8);
+        }
+        .lightbox-close {
+            position: absolute; top: 20px; right: 30px;
+            color: white; font-size: 40px; font-weight: 300;
+            cursor: pointer; z-index: 1001; transition: transform 0.3s ease;
+        }
+        
+        .lightbox-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.3); font-size: 50px; font-weight: 300;
+            cursor: pointer; z-index: 1002; padding: 20px; user-select: none; 
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .lightbox-nav:hover { color: white; transform: translateY(-50%) scale(1.1); }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        .lightbox-indicator {
+            position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%);
+            color: #888; font-size: 13px; letter-spacing: 2px;
+        }
+
+        /* === 頁尾 Footer === */
+        footer {
+            text-align: center; padding: 60px 20px; border-top: 1px solid #222; margin-top: 40px;
+        }
+        .footer-quote {
+            color: #888; font-size: 14px; letter-spacing: 2px; font-weight: 300; margin-bottom: 25px;
+        }
+        .social-links {
+            display: flex; justify-content: center; gap: 30px; margin-bottom: 30px;
+        }
+        .social-links a {
+            color: #666; transition: color 0.3s ease, transform 0.3s ease; display: inline-block;
+        }
+        .social-links a:hover {
+            color: #fff; transform: translateY(-3px);
+        }
+        .social-links svg { width: 24px; height: 24px; }
+        .footer-copyright { color: #444; font-size: 12px; letter-spacing: 1px; }
+        
+        #status-msg { text-align: center; padding: 40px; font-size: 14px; color: #aaa; letter-spacing: 1px; }
+
+        /* === RWD 手機優化 === */
+        @media (max-width: 800px) { 
+            .gallery { column-count: 2; column-gap: 10px; padding: 0 10px 40px 10px; } 
+            .navbar { padding: 15px 20px; flex-direction: column; gap: 15px; }
+            .hero-quote { font-size: 20px; }
+        }
+        @media (max-width: 500px) { 
+            .gallery { column-count: 1; } 
+            .lightbox-nav { font-size: 35px; padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-brand">THE LIGHT-SHADOW BOUNDARY</div>
+        <div class="navbar-links">
+            <a href="#">HOME</a>
+            <a href="#portfolio">PORTFOLIO</a>
+            <a href="#about">ABOUT</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-quote">「Bryan Lin(Lbw)<br>攝影集」</div>
+    </header>
+
+    <div id="portfolio" class="filter-container">
+        <button class="filter-btn active" onclick="filterGallery('all', this)">全部 ALL</button>
+    </div>
+
+    <div id="status-msg">正在讀取作品，請稍候...</div>
+    <div class="gallery" id="gallery"></div>
+
+    <footer id="about">
+        <div class="footer-quote">「用鏡頭捕捉宇宙的深邃與地球的美麗。」</div>
+        <div class="social-links">
+            <a href="https://www.facebook.com/Lbw0514" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="https://www.instagram.com/lbw0514/" target="_blank">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+        </div>
+        <div class="footer-copyright">© 2026 Bryan Lin. All rights reserved.</div>
+    </footer>
+
+    <div id="lightbox" class="lightbox" onclick="showNextImage(event)">
+        <span class="lightbox-close" onclick="closeLightbox(event)">×</span>
+        <span class="lightbox-nav lightbox-prev" onclick="showPrevImage(event)">❮</span>
+        <span class="lightbox-nav lightbox-next" onclick="showNextImage(event, true)">❯</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <div id="lightbox-indicator" class="lightbox-indicator"></div>
+    </div>
+
+    <script>
+        const FOLDER_ID = '1i74DDKxR1cAP9Jbh0VIjma0N_EoAs_mJ';
+        // 👇 記得貼上你的 API 金鑰
+        const API_KEY = 'AIzaSyAt7HrW9XcPt-vR5HtKVgNCqJFaxyBiNew';
+
+        async function fetchImagesRecursive(folderId, categoryName = '') {
+            let files = [];
+            const fileQuery = encodeURIComponent(`'${folderId}' in parents and mimeType contains 'image/' and trashed = false`);
+            const fileUrl = `https://www.googleapis.com/drive/v3/files?q=${fileQuery}&key=${API_KEY}&fields=files(id,name)&pageSize=1000&supportsAllDrives=true&includeItemsFromAllDrives=true`;
+            const folderQuery = encodeURIComponent(`'${folderId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false`);
+            const folderUrl = `https://www.googleapis.com/drive/v3/files?q=${folderQuery}&key=${API_KEY}&fields=files(id,name)&pageSize=1000&supportsAllDrives=true&includeItemsFromAllDrives=true`;
+
+            const [fileRes, folderRes] = await Promise.all([fetch(fileUrl), fetch(folderUrl)]);
+            const fileData = await fileRes.json();
+            const folderData = await folderRes.json();
+
+            if (fileData.files) fileData.files.forEach(f => files.push({ ...f, category: categoryName }));
+            if (folderData.files) {
+                for (const subFolder of folderData.files) {
+                    const subFiles = await fetchImagesRecursive(subFolder.id, subFolder.name);
+                    files = [...files, ...subFiles];
+                }
+            }
+            return files;
+        }
+
+        let currentImageArray = []; 
+        let currentLightboxIndex = 0; 
+
+        async function initGallery() {
+            const gallery = document.getElementById('gallery');
+            const filterBar = document.getElementById('portfolio'); 
+            try {
+                const allImages = await fetchImagesRecursive(FOLDER_ID);
+                currentImageArray = allImages; 
+                document.getElementById('status-msg').style.display = "none"; 
+                
+                const categories = [...new Set(allImages.map(img => img.category).filter(cat => cat !== ''))];
+                categories.forEach(cat => {
+                    const btn = document.createElement('button');
+                    btn.className = 'filter-btn';
+                    btn.textContent = cat; 
+                    btn.onclick = (e) => filterGallery(cat, e.target);
+                    filterBar.appendChild(btn);
+                });
+
+                allImages.forEach((file) => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item show';
+                    item.setAttribute('data-category', file.category);
+                    const img = document.createElement('img');
+                    img.src = `https://drive.google.com/thumbnail?id=${file.id}&sz=w800`;
+                    img.onclick = () => openLightbox(file.id);
+                    item.appendChild(img);
+                    gallery.appendChild(item);
+                });
+            } catch (e) { console.error(e); }
+        }
+
+        function filterGallery(category, btnElement) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                const show = category === 'all' || item.getAttribute('data-category') === category;
+                item.classList.toggle('show', show);
+            });
+            currentImageArray = Array.from(document.querySelectorAll('.gallery-item.show img')).map(img => ({ id: img.src.match(/id=([^&]+)/)[1] }));
+        }
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        function openLightbox(fileId) {
+            currentLightboxIndex = currentImageArray.findIndex(img => img.id === fileId);
+            lightbox.classList.add('show');
+            updateLightboxContent();
+        }
+        function closeLightbox(e) { e.stopPropagation(); lightbox.classList.remove('show'); }
+        function showPrevImage(e) { e.stopPropagation(); currentLightboxIndex = (currentLightboxIndex - 1 + currentImageArray.length) % currentImageArray.length; updateLightboxContent(); }
+        function showNextImage(e, fromArrow = false) { 
+            if (fromArrow) e.stopPropagation();
+            if (fromArrow || e.target.id === 'lightbox-img' || e.target.id === 'lightbox') {
+                currentLightboxIndex = (currentLightboxIndex + 1) % currentImageArray.length;
+                updateLightboxContent();
+            }
+        }
+        function updateLightboxContent() {
+            const file = currentImageArray[currentLightboxIndex];
+            lightboxImg.src = `https://drive.google.com/thumbnail?id=${file.id}&sz=w1920`;
+            document.getElementById('lightbox-indicator').textContent = `${currentLightboxIndex + 1} / ${currentImageArray.length}`;
+        }
+        initGallery();
+    </script>
+</body>
+</html>
