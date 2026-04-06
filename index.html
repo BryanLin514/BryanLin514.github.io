@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Bryan Lin(Lbw) - 攝影作品集</title>
+    <title>Bryan Lin - Visual Portfolio</title>
     <style>
-        /* === 黑色底高質感主題與核心 CSS === */
+        /* === 核心設計語言 === */
         body { 
             font-family: "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif; 
             background: #121212; 
@@ -13,6 +13,7 @@
             margin: 0; 
             padding: 0; 
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* === 導覽列 Navbar === */
@@ -20,166 +21,191 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
-            background: rgba(18, 18, 18, 0.9);
+            padding: 25px 40px;
+            background: rgba(18, 18, 18, 0.98);
             position: sticky;
             top: 0;
             z-index: 100;
             border-bottom: 1px solid #222;
         }
         .navbar-brand {
-            font-size: 16px;
-            letter-spacing: 2px;
+            font-size: 15px;
+            letter-spacing: 3px;
             font-weight: 300;
             text-transform: uppercase;
+            color: #fff;
         }
         .navbar-links a {
-            color: #888;
+            color: #666;
             text-decoration: none;
-            margin-left: 20px;
-            font-size: 13px;
-            letter-spacing: 1px;
+            margin-left: 25px;
+            font-size: 12px;
+            letter-spacing: 2px;
             transition: color 0.3s ease;
         }
         .navbar-links a:hover { color: #fff; }
 
-        /* === 引言區 Hero Section === */
+        /* === 精緻層次頁首 Hero Section === */
         .hero {
             text-align: center;
-            padding: 80px 20px 40px 20px;
-            max-width: 800px;
+            padding: 120px 20px 80px 20px;
+            max-width: 1000px;
             margin: 0 auto;
         }
-        .hero-quote {
-            font-size: 24px;
+        .hero-intro {
+            font-size: 15px;
+            color: #888;
+            letter-spacing: 7px;
+            line-height: 2.5;
             font-weight: 300;
-            letter-spacing: 4px;
+            margin-bottom: 25px;
+            text-indent: 7px; /* 修正字距偏移 */
+        }
+        .hero-main {
+            font-size: 24px;
             color: #fff;
-            margin-bottom: 10px;
-            line-height: 1.8;
+            letter-spacing: 8px;
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: 50px;
+            text-indent: 8px;
+        }
+        .hero-signature {
+            font-size: 11px;
+            letter-spacing: 5px;
+            color: #444;
+            text-transform: uppercase;
         }
 
-        /* === 分類篩選選單 === */
+        /* === 分類篩選按鈕 === */
         .filter-container {
             text-align: center;
-            padding-bottom: 50px;
+            padding-bottom: 60px;
         }
         .filter-btn {
             background: transparent;
-            color: #888;
-            border: 1px solid #444; 
+            color: #666;
+            border: 1px solid #222; 
             border-radius: 4px;
-            padding: 8px 20px;
-            margin: 5px;
+            padding: 10px 24px;
+            margin: 6px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 13px;
+            font-size: 12px;
             letter-spacing: 2px;
             -webkit-tap-highlight-color: transparent;
         }
         .filter-btn:hover, .filter-btn.active {
-            color: #121212;
-            background: #f0f0f0;
-            border-color: #f0f0f0;
+            color: #fff;
+            background: #1a1a1a;
+            border-color: #444;
         }
 
-        /* === 瀑布流版面 CSS === */
+        /* === 瀑布流版面 Gallery === */
         .gallery {
             column-count: 3;
-            column-gap: 15px;
+            column-gap: 20px;
             max-width: 1400px; 
             margin: 0 auto;
-            padding: 0 20px 60px 20px;
+            padding: 0 30px 80px 30px;
         }
         .gallery-item {
             break-inside: avoid;
-            margin-bottom: 15px;
-            background: #1a1a1a; 
-            border-radius: 2px;
+            margin-bottom: 30px;
+            background: #181818; 
+            border-radius: 4px;
             overflow: hidden;
-            transition: all 0.4s ease;
             display: none; 
+            border: 1px solid #222;
+            transition: transform 0.4s ease;
         }
         .gallery-item.show { display: block; }
         .gallery img {
             width: 100%;
             display: block;
-            transition: transform 0.6s ease;
             cursor: pointer;
+            transition: opacity 0.3s;
             -webkit-tap-highlight-color: transparent;
         }
-        .gallery img:hover { transform: scale(1.03); }
+        .gallery img:hover { opacity: 0.7; }
+        .gallery-info {
+            padding: 15px;
+            font-size: 12px;
+            color: #777;
+            letter-spacing: 1px;
+            text-align: center;
+        }
 
-        /* === Lightbox 燈箱放大模式 === */
+        /* === Lightbox 燈箱 === */
         .lightbox {
             display: none; position: fixed; z-index: 1000; 
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); 
+            background: rgba(8, 8, 8, 0.98); 
             justify-content: center; align-items: center; cursor: pointer; 
+            flex-direction: column;
         }
         .lightbox.show { display: flex; }
         .lightbox-content {
-            max-width: 90%; max-height: 90%; object-fit: contain;
-            border-radius: 2px; box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            max-width: 92%; max-height: 72%; object-fit: contain;
         }
+        .lightbox-details {
+            margin-top: 25px;
+            text-align: center;
+            max-width: 850px;
+            padding: 0 30px;
+            cursor: default;
+        }
+        .lb-title { font-size: 22px; color: #fff; margin-bottom: 8px; letter-spacing: 3px; font-weight: 300; }
+        .lb-exif { font-size: 13px; color: #666; margin-bottom: 12px; letter-spacing: 1px; }
+        .lb-desc { font-size: 14px; color: #999; line-height: 1.8; font-weight: 300; }
+
         .lightbox-close {
-            position: absolute; top: 20px; right: 30px;
-            color: white; font-size: 40px; font-weight: 300;
-            cursor: pointer; z-index: 1001; transition: transform 0.3s ease;
+            position: absolute; top: 25px; right: 35px;
+            color: white; font-size: 45px; font-weight: 100;
+            cursor: pointer; opacity: 0.5;
         }
-        
         .lightbox-nav {
             position: absolute; top: 50%; transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.3); font-size: 50px; font-weight: 300;
-            cursor: pointer; z-index: 1002; padding: 20px; user-select: none; 
-            transition: color 0.3s ease, transform 0.3s ease;
+            color: rgba(255, 255, 255, 0.15); font-size: 50px;
+            cursor: pointer; padding: 30px; transition: color 0.3s;
         }
-        .lightbox-nav:hover { color: white; transform: translateY(-50%) scale(1.1); }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-
-        .lightbox-indicator {
-            position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%);
-            color: #888; font-size: 13px; letter-spacing: 2px;
-        }
+        .lightbox-nav:hover { color: #fff; }
+        .lightbox-prev { left: 10px; }
+        .lightbox-next { right: 10px; }
 
         /* === 頁尾 Footer === */
         footer {
-            text-align: center; padding: 60px 20px; border-top: 1px solid #222; margin-top: 40px;
+            text-align: center; padding: 100px 20px; border-top: 1px solid #222; margin-top: 60px;
         }
-        .footer-quote {
-            color: #888; font-size: 14px; letter-spacing: 2px; font-weight: 300; margin-bottom: 25px;
+        .footer-quote { 
+            color: #666; font-size: 13px; letter-spacing: 1px; 
+            line-height: 2; margin-bottom: 45px; font-weight: 300;
         }
-        .social-links {
-            display: flex; justify-content: center; gap: 30px; margin-bottom: 30px;
-        }
-        .social-links a {
-            color: #666; transition: color 0.3s ease, transform 0.3s ease; display: inline-block;
-        }
-        .social-links a:hover {
-            color: #fff; transform: translateY(-3px);
-        }
-        .social-links svg { width: 24px; height: 24px; }
-        .footer-copyright { color: #444; font-size: 12px; letter-spacing: 1px; }
+        .social-links { display: flex; justify-content: center; gap: 50px; margin-bottom: 40px; }
+        .social-links a { color: #888; transition: all 0.3s ease; }
+        .social-links a:hover { color: #fff; transform: translateY(-5px); }
+        .social-links svg { width: 32px; height: 32px; }
+        .footer-copyright { color: #2a2a2a; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
         
-        #status-msg { text-align: center; padding: 40px; font-size: 14px; color: #aaa; letter-spacing: 1px; }
+        #status-msg { text-align: center; padding: 80px; font-size: 14px; color: #444; letter-spacing: 2px; }
 
         /* === RWD 手機優化 === */
-        @media (max-width: 800px) { 
-            .gallery { column-count: 2; column-gap: 10px; padding: 0 10px 40px 10px; } 
-            .navbar { padding: 15px 20px; flex-direction: column; gap: 15px; }
-            .hero-quote { font-size: 20px; }
-        }
-        @media (max-width: 500px) { 
-            .gallery { column-count: 1; } 
-            .lightbox-nav { font-size: 35px; padding: 10px; }
+        @media (max-width: 900px) { .gallery { column-count: 2; } }
+        @media (max-width: 600px) { 
+            .gallery { column-count: 1; padding: 0 20px 40px 20px; } 
+            .navbar { padding: 15px 25px; flex-direction: column; gap: 12px; }
+            .hero { padding: 80px 20px 50px 20px; }
+            .hero-intro { font-size: 13px; letter-spacing: 4px; }
+            .hero-main { font-size: 26px; letter-spacing: 7px; }
+            .lightbox-content { max-height: 60%; }
+            .lightbox-nav { display: none; }
         }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="navbar-brand">THE LIGHT-SHADOW BOUNDARY</div>
+        <div class="navbar-brand">LBW | PHOTOGRAPHY</div>
         <div class="navbar-links">
             <a href="#">HOME</a>
             <a href="#portfolio">PORTFOLIO</a>
@@ -188,18 +214,31 @@
     </nav>
 
     <header class="hero">
-        <div class="hero-quote">「Bryan Lin(Lbw)<br>攝影集」</div>
+        <div class="hero-intro">
+            從水滴碰撞的極致瞬間<br>
+            到深空天體的恆久不變
+        </div>
+        <div class="hero-main">
+            我用光影，訴說萬物的故事
+        </div>
+        <div class="hero-signature">
+            BRYAN LIN — VISUAL DIARY
+        </div>
     </header>
 
     <div id="portfolio" class="filter-container">
         <button class="filter-btn active" onclick="filterGallery('all', this)">全部 ALL</button>
     </div>
 
-    <div id="status-msg">正在讀取作品，請稍候...</div>
+    <div id="status-msg">正在連線至雲端作品庫...</div>
     <div class="gallery" id="gallery"></div>
 
     <footer id="about">
-        <div class="footer-quote">「用鏡頭捕捉宇宙的深邃與地球的美麗。」</div>
+        <div class="footer-quote">
+            "From the fleeting instant of a droplet's collision<br>
+            to the eternal stillness of the cosmos.<br>
+            I narrate the stories of all existence through light and shadow."
+        </div>
         <div class="social-links">
             <a href="https://www.facebook.com/Lbw0514" target="_blank">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
@@ -211,105 +250,163 @@
         <div class="footer-copyright">© 2026 Bryan Lin. All rights reserved.</div>
     </footer>
 
-    <div id="lightbox" class="lightbox" onclick="showNextImage(event)">
+    <div id="lightbox" class="lightbox" onclick="handleLightboxClick(event)">
         <span class="lightbox-close" onclick="closeLightbox(event)">×</span>
         <span class="lightbox-nav lightbox-prev" onclick="showPrevImage(event)">❮</span>
-        <span class="lightbox-nav lightbox-next" onclick="showNextImage(event, true)">❯</span>
+        <span class="lightbox-nav lightbox-next" onclick="showNextImage(event)">❯</span>
         <img class="lightbox-content" id="lightbox-img">
-        <div id="lightbox-indicator" class="lightbox-indicator"></div>
+        <div class="lightbox-details" onclick="event.stopPropagation()">
+            <div id="lb-title" class="lb-title"></div>
+            <div id="lb-exif" class="lb-exif"></div>
+            <div id="lb-desc" class="lb-desc"></div>
+            <div id="lb-counter" style="margin-top:15px; font-size:11px; color:#333; letter-spacing: 2px;"></div>
+        </div>
     </div>
 
     <script>
         const FOLDER_ID = '1i74DDKxR1cAP9Jbh0VIjma0N_EoAs_mJ';
-        // 👇 記得貼上你的 API 金鑰
-        const API_KEY = 'AIzaSyAt7HrW9XcPt-vR5HtKVgNCqJFaxyBiNew';
+        const API_KEY = 'AIzaSyAt7HrW9XcPt-vR5HtKVgNCqJFaxyBiNew'; // 👈 請填入您的 API KEY
 
-        async function fetchImagesRecursive(folderId, categoryName = '') {
-            let files = [];
-            const fileQuery = encodeURIComponent(`'${folderId}' in parents and mimeType contains 'image/' and trashed = false`);
-            const fileUrl = `https://www.googleapis.com/drive/v3/files?q=${fileQuery}&key=${API_KEY}&fields=files(id,name)&pageSize=1000&supportsAllDrives=true&includeItemsFromAllDrives=true`;
-            const folderQuery = encodeURIComponent(`'${folderId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false`);
-            const folderUrl = `https://www.googleapis.com/drive/v3/files?q=${folderQuery}&key=${API_KEY}&fields=files(id,name)&pageSize=1000&supportsAllDrives=true&includeItemsFromAllDrives=true`;
+        let allFilesData = []; 
+        let filteredData = [];
+        let currentIndex = 0;
 
-            const [fileRes, folderRes] = await Promise.all([fetch(fileUrl), fetch(folderUrl)]);
-            const fileData = await fileRes.json();
-            const folderData = await folderRes.json();
+        async function fetchImages(folderId, category = '') {
+            let list = [];
+            const fields = "files(id,name,description,imageMediaMetadata,mimeType)";
+            const query = encodeURIComponent(`'${folderId}' in parents and trashed = false`);
+            const url = `https://www.googleapis.com/drive/v3/files?q=${query}&key=${API_KEY}&fields=${fields}&pageSize=1000&supportsAllDrives=true&includeItemsFromAllDrives=true`;
 
-            if (fileData.files) fileData.files.forEach(f => files.push({ ...f, category: categoryName }));
-            if (folderData.files) {
-                for (const subFolder of folderData.files) {
-                    const subFiles = await fetchImagesRecursive(subFolder.id, subFolder.name);
-                    files = [...files, ...subFiles];
+            const res = await fetch(url);
+            const data = await res.json();
+
+            if (data.files) {
+                for (let f of data.files) {
+                    if (f.mimeType === 'application/vnd.google-apps.folder') {
+                        const subList = await fetchImages(f.id, f.name);
+                        list = list.concat(subList);
+                    } else if (f.name.match(/\.(jpg|jpeg|png|webp|gif)$/i)) {
+                        let exifStr = "";
+                        if (f.imageMediaMetadata) {
+                            const m = f.imageMediaMetadata;
+                            const shutter = m.exposureTime ? (m.exposureTime < 1 ? `1/${Math.round(1/m.exposureTime)}s` : `${m.exposureTime}s`) : "";
+                            const iso = m.isoSpeed ? `ISO ${m.isoSpeed}` : "";
+                            
+                            // ✅ 修正：改用 aperture 並過濾 R6+C8 的幽靈數字 1.8340
+                            let fstop = "";
+                            if (m.aperture) {
+                                if (m.aperture.toString().includes("1.8340")) {
+                                    fstop = ""; 
+                                } else {
+                                    fstop = `f/${parseFloat(m.aperture.toFixed(1))}`;
+                                }
+                            }
+                            exifStr = [shutter, fstop, iso].filter(Boolean).join(" · ");
+                        }
+                        list.push({
+                            id: f.id,
+                            displayName: f.name.replace(/\.[^/.]+$/, ""),
+                            category: category,
+                            description: f.description || "",
+                            exif: exifStr
+                        });
+                    }
                 }
             }
-            return files;
+            return list;
         }
 
-        let currentImageArray = []; 
-        let currentLightboxIndex = 0; 
-
-        async function initGallery() {
-            const gallery = document.getElementById('gallery');
-            const filterBar = document.getElementById('portfolio'); 
+        async function init() {
             try {
-                const allImages = await fetchImagesRecursive(FOLDER_ID);
-                currentImageArray = allImages; 
-                document.getElementById('status-msg').style.display = "none"; 
-                
-                const categories = [...new Set(allImages.map(img => img.category).filter(cat => cat !== ''))];
-                categories.forEach(cat => {
+                allFilesData = await fetchImages(FOLDER_ID);
+                filteredData = allFilesData;
+                document.getElementById('status-msg').style.display = "none";
+
+                const cats = [...new Set(allFilesData.map(f => f.category).filter(c => c !== ""))];
+                const filterBar = document.getElementById('portfolio');
+                cats.forEach(c => {
                     const btn = document.createElement('button');
                     btn.className = 'filter-btn';
-                    btn.textContent = cat; 
-                    btn.onclick = (e) => filterGallery(cat, e.target);
+                    btn.textContent = c;
+                    btn.onclick = (e) => filterGallery(c, e.target);
                     filterBar.appendChild(btn);
                 });
 
-                allImages.forEach((file) => {
-                    const item = document.createElement('div');
-                    item.className = 'gallery-item show';
-                    item.setAttribute('data-category', file.category);
-                    const img = document.createElement('img');
-                    img.src = `https://drive.google.com/thumbnail?id=${file.id}&sz=w800`;
-                    img.onclick = () => openLightbox(file.id);
-                    item.appendChild(img);
-                    gallery.appendChild(item);
-                });
-            } catch (e) { console.error(e); }
-        }
-
-        function filterGallery(category, btnElement) {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                const show = category === 'all' || item.getAttribute('data-category') === category;
-                item.classList.toggle('show', show);
-            });
-            currentImageArray = Array.from(document.querySelectorAll('.gallery-item.show img')).map(img => ({ id: img.src.match(/id=([^&]+)/)[1] }));
-        }
-
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        function openLightbox(fileId) {
-            currentLightboxIndex = currentImageArray.findIndex(img => img.id === fileId);
-            lightbox.classList.add('show');
-            updateLightboxContent();
-        }
-        function closeLightbox(e) { e.stopPropagation(); lightbox.classList.remove('show'); }
-        function showPrevImage(e) { e.stopPropagation(); currentLightboxIndex = (currentLightboxIndex - 1 + currentImageArray.length) % currentImageArray.length; updateLightboxContent(); }
-        function showNextImage(e, fromArrow = false) { 
-            if (fromArrow) e.stopPropagation();
-            if (fromArrow || e.target.id === 'lightbox-img' || e.target.id === 'lightbox') {
-                currentLightboxIndex = (currentLightboxIndex + 1) % currentImageArray.length;
-                updateLightboxContent();
+                renderGallery();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('status-msg').textContent = "讀取發生錯誤，請檢查 API Key 或網路連線。";
             }
         }
-        function updateLightboxContent() {
-            const file = currentImageArray[currentLightboxIndex];
-            lightboxImg.src = `https://drive.google.com/thumbnail?id=${file.id}&sz=w1920`;
-            document.getElementById('lightbox-indicator').textContent = `${currentLightboxIndex + 1} / ${currentImageArray.length}`;
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = "";
+            filteredData.forEach((f, idx) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item show';
+                item.innerHTML = `
+                    <img src="https://drive.google.com/thumbnail?id=${f.id}&sz=w800" onclick="openLightbox(${idx})">
+                    <div class="gallery-info">${f.displayName}</div>
+                `;
+                container.appendChild(item);
+            });
         }
-        initGallery();
+
+        function filterGallery(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filteredData = cat === 'all' ? allFilesData : allFilesData.filter(f => f.category === cat);
+            renderGallery();
+        }
+
+        function openLightbox(idx) {
+            currentIndex = idx;
+            document.getElementById('lightbox').classList.add('show');
+            updateLightbox();
+        }
+
+        function closeLightbox(e) {
+            if (e) e.stopPropagation();
+            document.getElementById('lightbox').classList.remove('show');
+        }
+
+        function handleLightboxClick(e) {
+            if (e.target.id === 'lightbox' || e.target.id === 'lightbox-img') {
+                showNextImage();
+            }
+        }
+
+        function showNextImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex + 1) % filteredData.length;
+            updateLightbox();
+        }
+
+        function showPrevImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex - 1 + filteredData.length) % filteredData.length;
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            const f = filteredData[currentIndex];
+            if (!f) return;
+            document.getElementById('lightbox-img').src = `https://drive.google.com/thumbnail?id=${f.id}&sz=w1920`;
+            document.getElementById('lb-title').textContent = f.displayName;
+            document.getElementById('lb-exif').textContent = f.exif;
+            document.getElementById('lb-desc').textContent = f.description;
+            document.getElementById('lb-counter').textContent = `${currentIndex + 1} / ${filteredData.length}`;
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (!document.getElementById('lightbox').classList.contains('show')) return;
+            if (e.key === "Escape") closeLightbox();
+            if (e.key === "ArrowRight") showNextImage();
+            if (e.key === "ArrowLeft") showPrevImage();
+        });
+
+        init();
     </script>
 </body>
 </html>
