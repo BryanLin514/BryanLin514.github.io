@@ -189,17 +189,44 @@
         
         #status-msg { text-align: center; padding: 80px; font-size: 14px; color: #444; letter-spacing: 2px; }
 
-        /* === RWD 手機優化 === */
-        @media (max-width: 900px) { .gallery { column-count: 2; } }
-        @media (max-width: 600px) { 
-            .gallery { column-count: 1; padding: 0 20px 40px 20px; } 
-            .navbar { padding: 15px 25px; flex-direction: column; gap: 12px; }
-            .hero { padding: 80px 20px 50px 20px; }
-            .hero-intro { font-size: 13px; letter-spacing: 4px; }
-            .hero-main { font-size: 26px; letter-spacing: 7px; }
-            .lightbox-content { max-height: 60%; }
-            .lightbox-nav { display: none; }
-        }
+        /* === RWD 手機版精緻化優化 === */
+@media (max-width: 600px) { 
+    /* 1. 縮減頁首上下的過度留白 */
+    .hero { 
+        padding: 60px 20px 40px 20px; 
+    }
+
+    /* 2. 引言小字：變得更精細，像電影字幕 */
+    .hero-intro { 
+        font-size: 11px;        /* 大幅縮小 */
+        letter-spacing: 4px;   /* 保持寬度 */
+        line-height: 2; 
+        margin-bottom: 20px;
+        text-indent: 4px;
+    }
+
+    /* 3. 主句：這是重點！縮小到優雅的大小，不再刺眼 */
+    .hero-main { 
+        font-size: 18px;        /* 從 26px 大幅降到 18px */
+        letter-spacing: 8px;   /* 增加寬度感，營造大氣氛圍 */
+        line-height: 1.8; 
+        margin-bottom: 35px;
+        text-indent: 8px;
+    }
+
+    /* 4. 底部簽名：極細小，當作裝飾符號 */
+    .hero-signature {
+        font-size: 9px;
+        letter-spacing: 4px;
+        opacity: 0.3;          /* 再淡一點，更有質感 */
+    }
+
+    /* 5. 導覽列與其他間距調整 */
+    .navbar { padding: 15px 20px; flex-direction: column; gap: 8px; }
+    .gallery { column-count: 1; padding: 0 20px 40px 20px; } 
+    .lightbox-content { max-height: 60%; }
+    .lightbox-nav { display: none; }
+}
     </style>
 </head>
 <body>
