@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mineral Moon Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app">
+      <div id="viewer" class="viewer" aria-label="Deep Zoom viewer"></div>
+
+      <section class="info-panel" aria-label="作品資訊">
+        <p class="kicker">Deep Zoom Lunar Gallery</p>
+        <h1 id="artwork-title">Mineral Moon</h1>
+        <p id="artwork-equipment">拍攝器材：Celestron C8 + ASI533MC Pro</p>
+        <p class="hint">滑鼠滾輪縮放，拖曳平移；手機可雙指縮放。</p>
+      </section>
+
+      <nav class="gallery-strip" aria-label="作品清單">
+        <div id="gallery-list" class="gallery-list"></div>
+      </nav>
+
+      <div id="status" class="status" role="status">載入作品中</div>
+    </main>
+
+    <script src="vendor/openseadragon/openseadragon.min.js"></script>
+    <script src="viewer.js"></script>
+  </body>
+</html>

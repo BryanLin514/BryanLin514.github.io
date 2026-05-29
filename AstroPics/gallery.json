@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-05-29T11:34:41.479027+00:00",
+  "items": [
+    {
+      "slug": "m13s",
+      "title": "M13s",
+      "equipment": "Celestron C8 + ASI533MC Pro",
+      "width": 2939,
+      "height": 2901,
+      "dzi": "tiles/m13s.dzi",
+      "thumbnail": "thumbs/m13s.jpg",
+      "sourceFile": "M13s.jpg"
+    },
+    {
+      "slug": "mineral-moon-logo",
+      "title": "Mineral Moon",
+      "equipment": "Celestron C8 + ASI533MC Pro",
+      "width": 5677,
+      "height": 5031,
+      "dzi": "tiles/mineral-moon-logo.dzi",
+      "thumbnail": "thumbs/mineral-moon-logo.jpg",
+      "sourceFile": "Mineral_Moon-logo.jpg"
+    }
+  ]
+}
