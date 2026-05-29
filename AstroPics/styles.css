@@ -78,16 +78,17 @@ button {
 .zoom-controls {
   position: absolute;
   z-index: 30;
-  right: clamp(12px, 2vw, 26px);
-  top: 50%;
+  left: 50%;
+  top: clamp(88px, 12vh, 126px);
   display: grid;
-  grid-template-rows: 40px 150px 40px;
+  grid-template-columns: 34px minmax(142px, 220px) 34px;
   justify-items: center;
-  gap: 7px;
+  align-items: center;
+  gap: 9px;
   padding: 0;
   border: 0;
   border-radius: 0;
-  transform: translateY(-50%);
+  transform: translateX(-50%);
   background: transparent;
   box-shadow: none;
   backdrop-filter: none;
@@ -96,8 +97,8 @@ button {
 .zoom-controls button {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.52);
@@ -113,13 +114,12 @@ button {
 }
 
 .zoom-controls input[type="range"] {
-  width: 150px;
+  width: 100%;
   height: 32px;
-  margin: 58px 0;
+  margin: 0;
   accent-color: #f4f4f4;
   cursor: pointer;
   filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.75));
-  transform: rotate(-90deg);
   touch-action: none;
 }
 
@@ -255,19 +255,14 @@ button {
   }
 
   .zoom-controls {
-    right: 10px;
-    grid-template-rows: 34px 108px 34px;
+    top: 86px;
+    grid-template-columns: 32px minmax(136px, 48vw) 32px;
     gap: 6px;
   }
 
   .zoom-controls button {
-    width: 34px;
-    height: 34px;
-    font-size: 1.15rem;
-  }
-
-  .zoom-controls input[type="range"] {
-    width: 108px;
-    margin: 38px 0;
+    width: 32px;
+    height: 32px;
+    font-size: 1.08rem;
   }
 }
