@@ -10,18 +10,24 @@
     <main class="app">
       <div id="viewer" class="viewer" aria-label="Deep Zoom viewer"></div>
 
-      <section class="info-panel" aria-label="作品資訊">
+      <section class="info-panel" aria-label="&#20316;&#21697;&#36039;&#35338;">
         <p class="kicker">Deep Zoom Lunar Gallery</p>
         <h1 id="artwork-title">Mineral Moon</h1>
-        <p id="artwork-equipment">拍攝器材：Celestron C8 + ASI533MC Pro</p>
-        <p class="hint">滑鼠滾輪縮放，拖曳平移；手機可雙指縮放。</p>
+        <p id="artwork-equipment">&#25293;&#25885;&#22120;&#26448;&#65306;Celestron C8 + ASI533MC Pro</p>
+        <p class="hint">&#28369;&#40736;&#28378;&#36650;&#32302;&#25918;&#65292;&#25302;&#26355;&#24179;&#31227;&#65307;&#25163;&#27231;&#21487;&#38617;&#25351;&#32302;&#25918;&#12290;</p>
       </section>
 
-      <nav class="gallery-strip" aria-label="作品清單">
+      <div class="zoom-controls" aria-label="&#32302;&#25918;&#25511;&#21046;">
+        <button type="button" id="zoom-in" aria-label="&#25918;&#22823;" title="&#25918;&#22823;">+</button>
+        <input id="zoom-slider" type="range" min="0" max="1000" value="0" aria-label="&#32302;&#25918;&#27604;&#20363;">
+        <button type="button" id="zoom-out" aria-label="&#32302;&#23567;" title="&#32302;&#23567;">-</button>
+      </div>
+
+      <nav class="gallery-strip" aria-label="&#20316;&#21697;&#28165;&#21934;">
         <div id="gallery-list" class="gallery-list"></div>
       </nav>
 
-      <div id="status" class="status" role="status">載入作品中</div>
+      <div id="status" class="status" role="status">&#36617;&#20837;&#20316;&#21697;&#20013;</div>
     </main>
 
     <script src="vendor/openseadragon/openseadragon.min.js"></script>
