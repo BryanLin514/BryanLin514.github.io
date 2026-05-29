@@ -1,7 +1,6 @@
 const galleryList = document.querySelector("#gallery-list");
 const statusBox = document.querySelector("#status");
 const titleEl = document.querySelector("#artwork-title");
-const equipmentEl = document.querySelector("#artwork-equipment");
 const zoomInButton = document.querySelector("#zoom-in");
 const zoomOutButton = document.querySelector("#zoom-out");
 const zoomSlider = document.querySelector("#zoom-slider");
@@ -12,7 +11,6 @@ let viewer;
 let isSliderChanging = false;
 
 const text = {
-  equipment: "\u62cd\u651d\u5668\u6750",
   loadingArtwork: "\u8f09\u5165\u5716\u78da\u4e2d",
   osdMissing: "OpenSeadragon \u8f09\u5165\u5931\u6557\uff0c\u8acb\u78ba\u8a8d vendor \u6a94\u6848\u662f\u5426\u5b58\u5728\u3002",
   missingGallery: "\u627e\u4e0d\u5230 gallery.json\uff0c\u8acb\u5148\u57f7\u884c\u5efa\u7f6e\u8173\u672c\u3002",
@@ -36,7 +34,6 @@ function getInitialSlug() {
 
 function updateInfo(item) {
   titleEl.textContent = item.title;
-  equipmentEl.textContent = `${text.equipment}\uff1a${item.equipment}`;
   document.title = `${item.title} | Mineral Moon Gallery`;
 }
 
