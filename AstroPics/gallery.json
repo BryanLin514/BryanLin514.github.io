@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-29T11:34:41.479027+00:00",
+  "generatedAt": "2026-06-21T09:04:21.308534+00:00",
   "items": [
     {
       "slug": "m13s",
@@ -20,6 +20,16 @@
       "dzi": "tiles/mineral-moon-logo.dzi",
       "thumbnail": "thumbs/mineral-moon-logo.jpg",
       "sourceFile": "Mineral_Moon-logo.jpg"
+    },
+    {
+      "slug": "全月-rs-j",
+      "title": "全月 RS j",
+      "equipment": "Celestron C8 + ASI533MC Pro",
+      "width": 3850,
+      "height": 3851,
+      "dzi": "tiles/全月-rs-j.dzi",
+      "thumbnail": "thumbs/全月-rs-j.jpg",
+      "sourceFile": "全月-RS-j.jpg"
     }
   ]
 }
