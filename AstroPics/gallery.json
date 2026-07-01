@@ -1,6 +1,16 @@
 {
-  "generatedAt": "2026-06-21T09:04:21.308534+00:00",
+  "generatedAt": "2026-07-01T09:42:35.017751+00:00",
   "items": [
+    {
+      "slug": "2026-06-30-滿月",
+      "title": "2026 06 30 滿月",
+      "equipment": "Celestron C8 + ASI533MC Pro",
+      "width": 3401,
+      "height": 3368,
+      "dzi": "tiles/2026-06-30-滿月.dzi",
+      "thumbnail": "thumbs/2026-06-30-滿月.jpg",
+      "sourceFile": "2026-06-30-滿月.jpg"
+    },
     {
       "slug": "m13s",
       "title": "M13s",
